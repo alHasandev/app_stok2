@@ -1,0 +1,14 @@
+// view detail barang / barang + jenis
+SELECT barang.*, jenis.nama_jenis FROM barang INNER JOIN jenis ON barang.id_jenis = jenis.id
+
+// view detail barang masuk / barang_masuk + barang
+SELECT barang_masuk.*, detail_barang.nama_barang, detail_barang.nama_jenis, detail_barang.harga, detail_barang.stok FROM barang_masuk INNER JOIN detail_barang ON barang_masuk.id_barang = detail_barang.id
+
+// view detail users / users + privileges
+SELECT users.*, privileges.name as privilege FROM users INNER JOIN privileges ON users.privilege_id = privileges.id
+
+// view detail mutasi / mutasi_barang + barang + sales
+SELECT mutasi_barang.*, detail_barang.nama_barang, detail_barang.nama_jenis as jenis_barang, detail_barang.harga, sales.nama_sales, (detail_barang.harga*mutasi_barang.jumlah) AS total_harga FROM mutasi_barang INNER JOIN detail_barang ON mutasi_barang.id_barang = detail_barang.id INNER JOIN sales ON mutasi_barang.id_sales = sales.id
+
+// view stok sales /  sales + mutasi_barang
+SELECT DISTINCT sales.*, COUNT(CASE WHEN mutasi_barang.lunas = 1 THEN 1 END) AS lunas, COUNT(CASE WHEN mutasi_barang.lunas = 0 THEN 1 END) AS belum_lunas FROM sales LEFT JOIN mutasi_barang ON sales.id = mutasi_barang.id_sales GROUP BY sales.id

@@ -1,0 +1,5 @@
+SELECT barang_masuk.*, barang.nama_barang, barang.kode_barang, barang.jenis, supplier.nama_supplier, imei.imeihp
+FROM barang_masuk 
+INNER JOIN barang ON barang_masuk.id_barang = barang.id_barang
+INNER JOIN supplier ON barang_masuk.id_supplier = supplier.id_supplier
+LEFT JOIN imei ON barang.id_barang = imei.id_barang;
